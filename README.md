@@ -1,12 +1,15 @@
-Promises
-Легенда
+## Promises
+
+### Легенда
+
 JavaScript живёт в асинхронном мире и большинство операций в нём так же выполняются асинхронно. Вы реализовали возможность экспорта сохранённого прогресса игры в виде JSON. Теперь нужно реализовать загрузку из файла.
 
-Описание
-Для вас реализованы функции-заглушки, которая эмулируют чтение файла и преобразование прочитанного в json. Ваша задача - реализовать класс GameSavingLoader с методом load, который загружает данные (с помощью функции read), парсит их (с помощью функции json()) и создаёт объект типа GameSaving.
+### Описание
 
-Модуль parser.js:
+Для вас реализованы функции-заглушки, которая эмулируют чтение файла и преобразование прочитанного в json. Ваша задача - реализовать класс `GameSavingLoader` с методом `load`, который загружает данные (с помощью функции `read`), парсит их (с помощью функции `json()`) и создаёт объект типа `GameSaving`.
 
+Модуль `parser.js`:
+```javascript
 export default function json(data) {
   return new Promise((resolve, reject) => {
     // эмуляция обработки ArrayBuffer
@@ -15,8 +18,10 @@ export default function json(data) {
     }, 500);
   });
 }
-Модуль reader.js:
+```
 
+Модуль `reader.js`:
+```javascript
 export default function read() {
   return new Promise((resolve, reject) => {
     // эмуляция чтения файла
@@ -33,8 +38,10 @@ export default function read() {
     }, 1000); 
   });
 }
-Пример использования класса (если бы это был синхронный код)
+```
 
+Пример использования класса (если бы это был синхронный код)
+```javascript
 export default class GameSavingLoader {
   static load() {
     const data = read(); // возвращается Promise!
@@ -42,10 +49,11 @@ export default class GameSavingLoader {
     return value;
   }
 }
-Вам нужно переписать метод load так, чтобы он возвращал Promise с данными (см. формат ниже).
+```
+Вам нужно переписать метод `load` так, чтобы он возвращал `Promise` с данными (см. формат ниже).
 
-Спецификации объекта типа GameSaving:
-
+Спецификации объекта типа `GameSaving`:
+```javascript
 {
   "id": <number>, // id сохранения
   "created": <timestamp>, // timestamp создания
@@ -56,10 +64,13 @@ export default class GameSavingLoader {
     "points": <number> // user points
   }
 }
-Т.е. итоговый ваш код должен работать так (модуль app.js):
+```
 
+Т.е. итоговый ваш код должен работать так (модуль `app.js`):
+```javascript
 GameSavingLoader.load().then((saving) => {
   // saving объект класса GameSaving
 }, (error) => {
   // ...
 });
+```
